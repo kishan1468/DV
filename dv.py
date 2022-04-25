@@ -44,8 +44,7 @@ def createlayout():
     query_params = st.experimental_get_query_params()
     app_check = st.experimental_get_query_params()
 
-    session_state = SessionState.get(first_query_params=query_params)
-    first_query_params = session_state.first_query_params
+   
 
     app_check = {k: v[0] if isinstance(v, list) else v for k, v in app_check.items()}
     st.sidebar.title("Menu")
