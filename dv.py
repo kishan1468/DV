@@ -40,7 +40,10 @@ def homepage():
 
 def createlayout():
 #     st.sidebar.title("Menu")
-    query_params = st.query_params
+    for k, v in app_check.items():
+    st.query_params[k] = v
+
+
     app_check = st.query_params
 
    
@@ -55,7 +58,9 @@ def createlayout():
 #         app_check["selectbox"] = page_list.index(app_mode)
 #         st.query_params(**app_check)
         app_check["selectbox"] = page_list.index(app_mode)
-        st.query_params(**app_check)
+        for k, v in app_check.items():
+    	st.query_params[k] = v
+
 #     app_mode = st.sidebar.selectbox("Please select a page", ["Homepage", "Gender Gap", "Popular YouTubers"])
         if app_mode == "Homepage":
             homepage()
