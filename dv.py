@@ -53,9 +53,9 @@ def createlayout():
     app_mode = st.sidebar.selectbox("Please select a page", page_list,index = default_selectbox)
     if app_mode:
 #         app_check["selectbox"] = page_list.index(app_mode)
-#         st.experimental_set_query_params(**app_check)
+#         st.query_params(**app_check)
         app_check["selectbox"] = page_list.index(app_mode)
-        st.experimental_set_query_params(**app_check)
+        st.query_params(**app_check)
 #     app_mode = st.sidebar.selectbox("Please select a page", ["Homepage", "Gender Gap", "Popular YouTubers"])
         if app_mode == "Homepage":
             homepage()
