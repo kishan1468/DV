@@ -57,7 +57,7 @@ def createlayout():
     if app_mode:
 #         app_check["selectbox"] = page_list.index(app_mode)
 #         st.query_params(**app_check)
-		app_check["selectbox"] = page_list.index(app_mode)
+		  app_check["selectbox"] = page_list.index(app_mode)
 		for k, v in app_check.items():
 			st.query_params[k] = v
 
