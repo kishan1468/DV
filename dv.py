@@ -58,26 +58,26 @@ def createlayout():
 #         app_check["selectbox"] = page_list.index(app_mode)
 #         st.query_params(**app_check)
         app_check["selectbox"] = page_list.index(app_mode)
-    for k, v in app_check.items():
-    	st.query_params[k] = v
+	    for k, v in app_check.items():
+	    	st.query_params[k] = v
 
 #     app_mode = st.sidebar.selectbox("Please select a page", ["Homepage", "Gender Gap", "Popular YouTubers"])
-		if app_mode == "Homepage":
-			homepage()
-		elif app_mode == "Country based analysis":
-			cba.load_page()
-		elif app_mode == "Average based analysis":
-			avg.load_page()
-		elif app_mode == "Spatial based analysis":
-			spatial.viz_page()
-		elif app_mode == "Heatmap of Continents":
-			con.load_page()
-		elif app_mode == "Scatter plots":
-			graph.load_page()
-		elif app_mode == "Rank based Analysis":
-			rank.load_page()
-		elif app_mode == "Histogram of Scores Distribution":
-			histo.load_page()
+	if app_mode == "Homepage":
+		homepage()
+	elif app_mode == "Country based analysis":
+		cba.load_page()
+	elif app_mode == "Average based analysis":
+		avg.load_page()
+	elif app_mode == "Spatial based analysis":
+		spatial.viz_page()
+	elif app_mode == "Heatmap of Continents":
+		con.load_page()
+	elif app_mode == "Scatter plots":
+		graph.load_page()
+	elif app_mode == "Rank based Analysis":
+		rank.load_page()
+	elif app_mode == "Histogram of Scores Distribution":
+		histo.load_page()
 
 def main():
     createlayout()
