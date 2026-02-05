@@ -20,7 +20,6 @@ def side_bar_homepage():
     st.sidebar.title("Team Members")
     st.sidebar.info("""Kishan kumar sharma (19BCE2569)""")
     st.sidebar.info("""Aditya Narayan (19BCE2172)""")
-    st.sidebar.info("""Thankur Saurav Suman(19BCE0879)""")
 
 def homepage():
 	st.markdown("<h1 style='text-align: center;'>WORLD HAPPINESS REPORT</h1>", unsafe_allow_html=True)
@@ -41,8 +40,8 @@ def homepage():
 
 def createlayout():
 #     st.sidebar.title("Menu")
-    query_params = st.experimental_get_query_params()
-    app_check = st.experimental_get_query_params()
+    query_params = st.query_params
+    app_check = st.query_params
 
    
 
