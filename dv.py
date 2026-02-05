@@ -19,9 +19,8 @@ import histo
 
 # ---------------- Sidebar ---------------- #
 def side_bar_homepage():
-    st.sidebar.title("Team Members")
+    st.sidebar.title("Author")
     st.sidebar.info("Kishan kumar sharma (19BCE2569)")
-    st.sidebar.info("Aditya Narayan (19BCE2172)")
 
 
 # ---------------- Homepage ---------------- #
