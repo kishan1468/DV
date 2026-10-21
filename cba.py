@@ -2,59 +2,62 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-#st.set_option('deprecation.showPyplotGlobalUse', False)
 
-df = pd.read_csv('data/happiness_combined_year copy 2.csv')
-df = df.drop(columns=['Unnamed: 0'],axis=1)
+DATA_PATH = 'data/happiness_combined_year copy 2.csv'
 
-def plot_fac(df):
-	    plt.figure(figsize=(16,8))
-	    d = {1:['Economy (GDP per Capita)','red'],2:['Family','blue'],3:['Health (Life Expectancy)','green'],4:['Freedom','yellow'],5:['Trust (Government Corruption)','orange'],6:['Generosity','magenta']}
-	    for key,value in d.items():
-	        plt.subplot(3, 2, key)
-	        sns.pointplot(x = "Year",
-	                      y = value[0],
-	                      data = df,color=value[1])
-def plot(lst,data=df):
-	for i in lst:
-		d = data[data['Country'] == i]
-		sns.pointplot(x = "Year",
-              y = "Happiness Rank",
-              data = d)
-		plt.title(i)
-		st.pyplot()
-		plot_fac(d)
-		st.pyplot()
+df = pd.read_csv(DATA_PATH)
+df = df.drop(columns=['Unnamed: 0'])
+
+FACTORS = [
+    ('Economy (GDP per Capita)', 'red'),
+    ('Family', 'blue'),
+    ('Health (Life Expectancy)', 'green'),
+    ('Freedom', 'yellow'),
+    ('Trust (Government Corruption)', 'orange'),
+    ('Generosity', 'magenta'),
+]
+
+
+def plot_fac(data):
+    """Six small charts (one per happiness factor) for one country."""
+    fig, axes = plt.subplots(3, 2, figsize=(16, 8))
+    for ax, (column, color) in zip(axes.flat, FACTORS):
+        sns.pointplot(x="Year", y=column, data=data, color=color, ax=ax)
+    fig.tight_layout()
+    return fig
+
+
+def plot(lst, data=df):
+    for country in lst:
+        d = data[data['Country'] == country]
+
+        fig, ax = plt.subplots(figsize=(8, 4))
+        sns.pointplot(x="Year", y="Happiness Rank", data=d, ax=ax)
+        ax.set_title(country)
+        st.pyplot(fig)
+        plt.close(fig)
+
+        fig = plot_fac(d)
+        st.pyplot(fig)
+        plt.close(fig)
+
 
 def info():
-	df = pd.read_csv('data/happiness_combined_year copy 2.csv')
-	df = df.drop(columns=['Unnamed: 0'],axis=1)
+    countries = df['Country'].unique()
+    countries_selected = st.multiselect('Select countries', countries)
 
-	COUNTRIES = df['Country'].unique()
-	COUNTRIES_SELECTED = st.multiselect('Select countries', COUNTRIES)
+    if not countries_selected:
+        st.info('Select at least one country to see its charts.')
+        return
 
-	# Mask to filter dataframe
-	mask_countries = df['Country'].isin(COUNTRIES_SELECTED)
-
-	df = df[mask_countries]
-
-	
-
-	plot(COUNTRIES_SELECTED)
+    plot(countries_selected)
 
 
-
-
-
-	
-	
-
-    
-    
 def load_page():
-	st.markdown("<h1 style='text-align: center;'>Country based analysis</h1>", unsafe_allow_html=True)
-	info()
-    
+    st.markdown("<h1 style='text-align: center;'>Country based analysis</h1>",
+                unsafe_allow_html=True)
+    info()
+
 
 if __name__ == "__main__":
-	load_page()
+    load_page()
