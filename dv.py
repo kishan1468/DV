@@ -1,82 +1,37 @@
-# ---------------- Sidebar ---------------- #
-def side_bar_homepage():
-    st.sidebar.title("🌍 World Happiness Dashboard")
-    st.sidebar.markdown(
-        "Explore happiness indicators across countries."
-    )
+import streamlit as st
+import streamlit.components.v1 as components
+import pandas as pd
+import numpy as np
+import plotly.express as px
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-    st.sidebar.divider()
+import cba
+import avg
+import spatial
+import con
+import graph
+import rank
+import histo
 
-    st.sidebar.subheader("Navigation")
+# Must run before other Streamlit commands
+st.set_page_config(
+    page_title="World Happiness Dashboard",
+    page_icon="🌍",
+    layout="wide"
+)
 
-    page = st.sidebar.radio(
-        "Choose a section:",
-        [
-            "Home",
-            "Correlation Analysis",
-            "Average Happiness",
-            "Spatial Analysis",
-            "Country Comparison",
-            "Graphs",
-            "Country Rankings",
-            "Distribution Analysis",
-        ],
-    )
+# Keep your compatibility patch below this point
+if not getattr(st.pyplot, "_patched", False):
+    _original_pyplot = st.pyplot
 
-    return page
+    def _pyplot_compat(fig=None, **kwargs):
+        if fig is None:
+            fig = plt.gcf()
+            kwargs.setdefault("clear_figure", True)
+        return _original_pyplot(fig, **kwargs)
 
-
-# ---------------- Main Application ---------------- #
-def main():
-    st.set_page_config(
-        page_title="World Happiness Dashboard",
-        page_icon="🌍",
-        layout="wide",
-    )
-
-    st.title("🌍 World Happiness Report")
-    st.markdown(
-        "Explore global happiness scores and their relationship "
-        "with economic and social indicators."
-    )
-
-    page = side_bar_homepage()
-
-    if page == "Home":
-        st.subheader("Welcome")
-        st.write(
-            "Use the sidebar to explore happiness data, compare "
-            "countries, and analyze factors associated with happiness."
-        )
-
-    elif page == "Correlation Analysis":
-        st.subheader("Correlation Analysis")
-        st.info("Connect your correlation-analysis module here.")
-
-    elif page == "Average Happiness":
-        st.subheader("Average Happiness")
-        st.info("Connect your average-happiness module here.")
-
-    elif page == "Spatial Analysis":
-        st.subheader("Spatial Analysis")
-        st.info("Connect your spatial-analysis module here.")
-
-    elif page == "Country Comparison":
-        st.subheader("Country Comparison")
-        st.info("Connect your country-comparison module here.")
-
-    elif page == "Graphs":
-        st.subheader("Graphs")
-        st.info("Connect your graph module here.")
-
-    elif page == "Country Rankings":
-        st.subheader("Country Rankings")
-        st.info("Connect your ranking module here.")
-
-    elif page == "Distribution Analysis":
-        st.subheader("Distribution Analysis")
-        st.info("Connect your distribution-analysis module here.")
-
-
-if __name__ == "__main__":
-    main()
+    _pyplot_compat._patched = True
+    st.pyplot = _pyplot_compat
